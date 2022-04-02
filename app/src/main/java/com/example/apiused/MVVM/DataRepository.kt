@@ -16,7 +16,7 @@ class DataRepository {
     private val responseClassBuffer = MutableLiveData<StringBuffer>()
     val userBuffer: LiveData<StringBuffer> get() = responseClassBuffer
 
-    fun openTheConnection() {
+    fun fetchTheContact() {
         val stringBuffer = StringBuffer()
         CoroutineScope(Dispatchers.IO).launch {
             var url: URL? = null
@@ -55,12 +55,13 @@ class DataRepository {
         }
     }
 
-    fun postData(firstName: String, lastName: String,email:String) {
+    fun createNewContact(firstName: String, lastName: String,email:String) {
 
         val params = JSONObject()
         params.put("firstName", firstName)
         params.put("lastName", lastName)
         params.put("email", email)
+
         val paramString = params.toString()
         CoroutineScope(Dispatchers.IO).launch {
             var url: URL? = null
@@ -88,7 +89,7 @@ class DataRepository {
         }
     }
 
-    fun Delete(id: String) {
+    fun deleteTheContact(id: String) {
         val url=URL("https://dummyapi.io/data/v1/user/$id")
         val httpURLConnection=url.openConnection() as HttpURLConnection
         httpURLConnection.doOutput=true
@@ -98,5 +99,4 @@ class DataRepository {
         httpURLConnection.connect()
         Log.d("delete",httpURLConnection.responseCode.toString())
     }
-
 }

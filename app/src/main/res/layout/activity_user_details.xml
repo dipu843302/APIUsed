@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.UserDetails">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline_arrow_back_24"
+        android:padding="5dp"
+        android:id="@+id/back"/>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline_delete_24"
+        android:padding="5dp"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/btnDelete"/>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline_edit_24"
+        android:padding="5dp"
+        android:layout_marginEnd="30dp"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/btnEdit"/>
+</RelativeLayout>
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/image"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="15dp"
+        android:src="@drawable/mahesh" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Name"
+        android:layout_gravity="center_horizontal"
+        android:textSize="25dp"
+        android:textColor="@color/black"
+        android:layout_marginTop="10dp"
+        android:id="@+id/tvName"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Email"
+        android:layout_gravity="center_horizontal"
+        android:textSize="15dp"
+        android:layout_marginTop="10dp"
+        android:id="@+id/tvEmail"/>
+</LinearLayout>

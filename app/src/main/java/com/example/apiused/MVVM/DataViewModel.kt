@@ -10,21 +10,21 @@ class DataViewModel(private val dataRepository: DataRepository):ViewModel() {
 
     val user:LiveData<StringBuffer> get()=dataRepository.userBuffer
 
-    fun openTheConnection(){
+    fun fetchTheContact(){
         viewModelScope.launch (Dispatchers.IO){
-            dataRepository.openTheConnection()
+            dataRepository.fetchTheContact()
         }
     }
 
-    fun postData(firstName: String, lastName: String,email:String) {
+    fun createNewContact(firstName: String, lastName: String,email:String) {
         viewModelScope.launch (Dispatchers.IO){
-            dataRepository.postData(firstName,lastName,email)
+            dataRepository.createNewContact(firstName,lastName,email)
         }
     }
 
-    fun Delete(id: String) {
+    fun deleteTheContact(id: String) {
         viewModelScope.launch (Dispatchers.IO){
-            dataRepository.Delete(id)
+            dataRepository.deleteTheContact(id)
         }
     }
 }

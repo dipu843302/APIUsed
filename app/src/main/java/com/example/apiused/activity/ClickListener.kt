@@ -1,5 +1,7 @@
 package com.example.apiused.activity
 
+import com.example.apiused.models.ResponseClass
+
 interface ClickListener {
-    fun DeleteData(id:String)
+ fun userClickListener(responseClass: ResponseClass)
 }

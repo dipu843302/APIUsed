@@ -1,56 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:padding="5dp"
+    android:padding="10dp"
+    android:orientation="horizontal"
+    android:layout_marginStart="5dp"
+    android:id="@+id/linearLayout"
     android:layout_height="wrap_content">
 
-
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/image"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:src="@drawable/ic_baseline_person_24" />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/line1"
-        android:layout_toRightOf="@+id/image">
-
-
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:text="Mr."
-            android:textSize="20dp"
-            android:textColor="@color/black"
-            android:textStyle="bold" />
+        android:src="@drawable/mahesh" />
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/firstName"
-        android:text="First Name"
-        android:textSize="20dp"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        android:layout_marginStart="10dp"/>
-    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/lastName"
-        android:text="Last Name"
-        android:textSize="20dp"
+        android:layout_marginStart="10dp"
+        android:text="First Name"
         android:textColor="@color/black"
-        android:textStyle="bold"
-        android:layout_marginStart="10dp"/>
-        <ImageView
-            android:id="@+id/delete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:src="@drawable/ic_baseline_delete_24" />
-    </LinearLayout>
-
-
-</RelativeLayout>
+        android:textSize="17dp"
+        android:layout_marginTop="10dp"
+        />
+</LinearLayout>

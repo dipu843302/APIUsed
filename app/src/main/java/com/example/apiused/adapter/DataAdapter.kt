@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.view.menu.ActionMenuItemView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -34,16 +35,16 @@ class DataAdapter(val list: MutableList<ResponseClass>,val clickListener: ClickL
         @SuppressLint("CheckResult")
         fun setData(responseClass: ResponseClass) {
             itemView.apply {
-                Glide.with(context)
-                    .load(responseClass.picture)
-                    .load(image)
 
-                title.text = responseClass.title
+                Glide.with(this)
+                    .load(responseClass.picture) // image url
+                    .centerCrop()
+                    .into(image)  // imageview object
+
                 firstName.text = responseClass.firstName
-                lastName.text = responseClass.lastName
 
-                delete.setOnClickListener{
-                    clickListener.DeleteData(responseClass.id)
+                linearLayout.setOnClickListener{
+                    clickListener.userClickListener(responseClass)
                 }
             }
         }

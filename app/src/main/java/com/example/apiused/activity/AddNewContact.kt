@@ -11,7 +11,7 @@ import com.example.apiused.MVVM.DataViewModelFactory
 import com.example.apiused.R
 import kotlinx.android.synthetic.main.activity_add.*
 
-class Add : AppCompatActivity() {
+class AddNewContact : AppCompatActivity() {
 
     private lateinit var dataViewModel: DataViewModel
 
@@ -23,8 +23,8 @@ class Add : AppCompatActivity() {
         val viewModelFactory = DataViewModelFactory(repository)
         dataViewModel = ViewModelProviders.of(this, viewModelFactory)[DataViewModel::class.java]
 
-        btnAdd.setOnClickListener{
-            dataViewModel.postData(etFirstName.text.toString(),etLastName.text.toString(),etEmail.text.toString())
+        btnCreate.setOnClickListener{
+            dataViewModel.createNewContact(etfirstName.text.toString(),etlastName.text.toString(),etEmail.text.toString())
             Toast.makeText(this, "Added", Toast.LENGTH_SHORT).show()
             startActivity(Intent(this,MainActivity::class.java))
         }

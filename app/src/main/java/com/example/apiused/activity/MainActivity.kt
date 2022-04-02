@@ -30,14 +30,14 @@ class MainActivity : AppCompatActivity(),ClickListener {
         val viewModelFactory = DataViewModelFactory(repository)
         dataViewModel = ViewModelProviders.of(this, viewModelFactory)[DataViewModel::class.java]
 
-        dataViewModel.openTheConnection()
+        dataViewModel.fetchTheContact()
         dataViewModel.user.observe(this) {
             Log.d("check", it.toString())
             buildResponseData(it)
         }
 
         addData.setOnClickListener{
-            startActivity(Intent(this,Add::class.java))
+            startActivity(Intent(this,AddNewContact::class.java))
         }
     }
 
@@ -70,7 +70,11 @@ class MainActivity : AppCompatActivity(),ClickListener {
         recyclerView.layoutManager = LinearLayoutManager(this)
     }
 
-    override fun DeleteData(id: String) {
-        dataViewModel.Delete(id)
+    override fun userClickListener(responseClass: ResponseClass) {
+        val intent=Intent(this,UserDetails::class.java)
+        intent.putExtra("response",responseClass)
+        startActivity(intent)
     }
+
+
 }

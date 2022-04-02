@@ -12,7 +12,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.APIUsed">
         <activity
-            android:name=".activity.Add"
+            android:name=".activity.UserDetails"
+            android:exported="false" />
+        <activity
+            android:name=".activity.UpdateTheContact"
+            android:exported="false" />
+        <activity
+            android:name=".activity.AddNewContact"
             android:exported="false" />
         <activity
             android:name=".activity.MainActivity"

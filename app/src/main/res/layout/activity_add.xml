@@ -1,46 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_horizontal"
-    android:orientation="vertical"
     android:padding="10dp"
-    tools:context=".activity.Add">
-<ImageView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:src="@drawable/ic_launcher_background"
-    android:id="@+id/imageview"/>
-    <EditText
-        android:layout_width="match_parent"
+    tools:context=".activity.AddNewContact">
+
+   <ImageView
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:src="@drawable/ic_baseline_arrow_back_24"
+       android:id="@+id/ivBack"/>
+
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="First Name"
+        android:layout_centerHorizontal="true"
+        android:text="Create New Contact"
         android:textColor="@color/black"
-        android:id="@+id/etFirstName"
+        android:textSize="20dp" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.2dp"
+        android:layout_below="@id/ivBack"
         android:layout_marginTop="10dp"
-        />
+        android:background="#201A1A"/>
+
+    <ImageView
+        android:id="@+id/person"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ivBack"
+        android:layout_marginTop="40dp"
+        android:src="@drawable/ic_baseline_person_24" />
+
+    <EditText
+        android:id="@+id/etfirstName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ivBack"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="25dp"
+        android:layout_toRightOf="@id/person"
+        android:hint="First Name" />
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/etfirstName"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/person"
         android:hint="Last Name"
-        android:textColor="@color/black"
-        android:id="@+id/etLastName"
-        android:layout_marginTop="10dp"
-      />
+        android:id="@+id/etlastName"/>
+
+    <ImageView
+        android:id="@+id/email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/etlastName"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/ic_baseline_email_24" />
+
     <EditText
+        android:id="@+id/etEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Email"
+        android:layout_below="@id/etlastName"
+        android:layout_marginStart="5dp"
         android:layout_marginTop="10dp"
-        android:textColor="@color/black"
-        android:id="@+id/etEmail"
-        />
+        android:layout_toRightOf="@id/person"
+        android:hint="Email" />
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add"
-        android:id="@+id/btnAdd"
-        android:layout_marginTop="10dp"/>
-</LinearLayout>
+        android:layout_below="@id/etEmail"
+        android:layout_centerHorizontal="true"
+        android:text="Create"
+        android:layout_marginTop="10dp"
+        android:id="@+id/btnCreate"/>
+</RelativeLayout>
