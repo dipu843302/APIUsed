@@ -59,7 +59,21 @@ class UserDetails : AppCompatActivity() {
 
         //update the contact
         btnEdit.setOnClickListener {
-
+           val intent=Intent(this,UpdateTheContact::class.java)
+          //  intent.putExtra("id",id)
+         //   intent.putExtra("id",image.toString())
+            intent.putExtra("tittle",tvTittle.text.toString())
+            intent.putExtra("firstName",tvFirstName.text.toString())
+            intent.putExtra("lastName",tvLastName.text.toString())
+            intent.putExtra("gender",tvGender.text.toString())
+            intent.putExtra("email",tvEmail.text.toString())
+            intent.putExtra("phone",tvPhone.text.toString())
+            intent.putExtra("street",tVStreet.text.toString())
+            intent.putExtra("city",tvCity.text.toString())
+            intent.putExtra("state",tvState.text.toString())
+            intent.putExtra("country",tvCountry.text.toString())
+            intent.putExtra("timezone",tvTimezone.text.toString())
+            startActivity(intent)
         }
 
         // delete the contact
