@@ -15,6 +15,11 @@ class DataViewModel(private val dataRepository: DataRepository):ViewModel() {
             dataRepository.fetchTheContact()
         }
     }
+    fun fetchContactDetailsById( id:String){
+        viewModelScope.launch (Dispatchers.IO){
+            dataRepository.fetchContactDetailsById(id)
+        }
+    }
 
     fun createNewContact(firstName: String, lastName: String,email:String) {
         viewModelScope.launch (Dispatchers.IO){

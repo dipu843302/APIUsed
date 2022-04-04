@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity(),ClickListener {
 
         dataViewModel.fetchTheContact()
         dataViewModel.user.observe(this) {
-            Log.d("check", it.toString())
+       //     Log.d("check", it.toString())
             buildResponseData(it)
         }
 
