@@ -36,7 +36,7 @@
 
     </RelativeLayout>
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/image"
+        android:id="@+id/etImage"
         android:layout_width="110dp"
         android:layout_height="110dp"
         android:layout_gravity="center_horizontal"

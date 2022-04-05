@@ -10,8 +10,8 @@ import kotlinx.coroutines.launch
 import org.json.JSONObject
 import java.io.InputStreamReader
 import java.io.OutputStreamWriter
-import java.net.HttpURLConnection
 import java.net.URL
+
 
 class DataRepository {
     private val responseClassBuffer = MutableLiveData<StringBuffer>()
@@ -42,7 +42,7 @@ class DataRepository {
                     data = inputStreamReader.read()
                 }
                 responseClassBuffer.postValue(stringBuffer)
-              //  Log.d("get", urlConnection.responseCode.toString())
+                Log.d("get", urlConnection.responseCode.toString())
              //   Log.d("gett", stringBuffer.toString())
 
             } catch (e: Exception) {
@@ -82,7 +82,6 @@ class DataRepository {
               //  Log.d("gett", stringBuffer.toString())
 
             } catch (e: Exception) {
-
                 e.printStackTrace()
             }
         }
