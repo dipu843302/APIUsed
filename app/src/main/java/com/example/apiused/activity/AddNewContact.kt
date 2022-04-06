@@ -24,7 +24,8 @@ class AddNewContact : AppCompatActivity() {
         dataViewModel = ViewModelProviders.of(this, viewModelFactory)[DataViewModel::class.java]
 
         btnCreate.setOnClickListener{
-            dataViewModel.createNewContact(etfirstName.text.toString(),etlastName.text.toString(),etEmail.text.toString())
+           // dataViewModel.createNewContact(etfirstName.text.toString(),etlastName.text.toString(),etEmail.text.toString())
+            dataViewModel.getTheResponse("https://dummyapi.io/data/v1/user/create","PUT")
             Toast.makeText(this, "Added", Toast.LENGTH_SHORT).show()
             startActivity(Intent(this,MainActivity::class.java))
         }

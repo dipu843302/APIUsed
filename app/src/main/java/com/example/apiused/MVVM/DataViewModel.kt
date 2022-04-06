@@ -3,33 +3,21 @@ package com.example.apiused.MVVM
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.apiused.helper.HttpHelper
+import com.example.apiused.helper.HttpResponse
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class DataViewModel(private val dataRepository: DataRepository):ViewModel() {
+class DataViewModel(private val dataRepository: DataRepository) : ViewModel() {
 
-    val user:LiveData<StringBuffer> get()=dataRepository.userBuffer
+    val user: LiveData<HttpResponse> get() = dataRepository.user
 
-    fun fetchTheContact(){
+    fun getTheResponse(putUrl: String, requestMethod: String) {
         viewModelScope.launch (Dispatchers.IO){
-            dataRepository.fetchTheContact()
+         dataRepository.getTheResponse(putUrl, requestMethod)
         }
-    }
-    fun fetchContactDetailsById( id:String){
-        viewModelScope.launch (Dispatchers.IO){
-            dataRepository.fetchContactDetailsById(id)
-        }
+
     }
 
-    fun createNewContact(firstName: String, lastName: String,email:String) {
-        viewModelScope.launch (Dispatchers.IO){
-            dataRepository.createNewContact(firstName,lastName,email)
-        }
-    }
-
-    fun deleteTheContact(id: String) {
-        viewModelScope.launch (Dispatchers.IO){
-            dataRepository.deleteTheContact(id)
-        }
-    }
 }

@@ -11,6 +11,7 @@ import com.example.apiused.MVVM.DataRepository
 import com.example.apiused.MVVM.DataViewModel
 import com.example.apiused.MVVM.DataViewModelFactory
 import com.example.apiused.R
+import com.example.apiused.helper.HttpResponse
 import com.example.apiused.models.Location
 import com.example.apiused.models.ResponseClass
 import com.example.apiused.models.UserModel
@@ -45,7 +46,7 @@ class UserDetails : AppCompatActivity() {
 
         val id = responseClass?.id
         if (id != null) {
-            dataViewModel.fetchContactDetailsById(id)
+            dataViewModel.getTheResponse("https://dummyapi.io/data/v1/user/$id","GET")
             dataViewModel.user.observe(this) {
                 buildResponseData(it)
             }
@@ -79,16 +80,16 @@ class UserDetails : AppCompatActivity() {
         // delete the contact
         btnDelete.setOnClickListener {
             if (responseClass != null) {
-                dataViewModel.deleteTheContact(responseClass.id)
+                dataViewModel.getTheResponse("https://dummyapi.io/data/v1/user/$id","DELETE")
                 startActivity(Intent(this, MainActivity::class.java))
                 Toast.makeText(this, "Deleted", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
-    private fun buildResponseData(stringBuffer: StringBuffer) {
+    private fun buildResponseData(httpResponse: HttpResponse) {
 
-        val json = stringBuffer.toString()
+        val json = httpResponse.response
         try {
             val jsonObject = JSONObject(json)
 
