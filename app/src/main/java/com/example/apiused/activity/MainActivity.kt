@@ -34,6 +34,8 @@ class MainActivity : AppCompatActivity(),ClickListener {
     lateinit var dataAdapter: DataAdapter
     private var datalist = mutableListOf<ResponseClass>()
 
+    var arraylist=ArrayList<String>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -44,7 +46,7 @@ class MainActivity : AppCompatActivity(),ClickListener {
 
 
 
-            dataViewModel.getTheResponse("https://dummyapi.io/data/v1/user","GET")
+            dataViewModel.getTheResponse("https://dummyapi.io/data/v1/user","GET", arraylist)
             dataViewModel.user.observe(this) {
                    Log.d("dipu", it.toString())
                 buildResponseData(it)

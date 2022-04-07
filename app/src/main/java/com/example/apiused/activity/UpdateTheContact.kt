@@ -5,7 +5,13 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
+import android.widget.ImageView
+import android.widget.Toast
+import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
+import com.example.apiused.MVVM.DataRepository
+import com.example.apiused.MVVM.DataViewModel
+import com.example.apiused.MVVM.DataViewModelFactory
 import com.example.apiused.R
 import com.example.apiused.models.ResponseClass
 import kotlinx.android.synthetic.main.activity_add.*
@@ -14,10 +20,17 @@ import kotlinx.android.synthetic.main.activity_user_details.*
 import kotlinx.android.synthetic.main.item_layout.*
 
 class UpdateTheContact : AppCompatActivity() {
+    private lateinit var dataViewModel: DataViewModel
     private lateinit var uri: Uri
+    var arraylist=ArrayList<String>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_update)
+
+        val repository = DataRepository()
+        val viewModelFactory = DataViewModelFactory(repository)
+        dataViewModel = ViewModelProviders.of(this, viewModelFactory)[DataViewModel::class.java]
 
         // back to contact details
         ivCross.setOnClickListener{
@@ -28,7 +41,7 @@ class UpdateTheContact : AppCompatActivity() {
         if (responseClass != null) {
             Glide.with(this)
                 .load(responseClass.picture)
-                .into(etImage)
+                .into(etImage as ImageView)
         }
 
         etTittle.setText(intent.getStringExtra("tittle"))
@@ -43,6 +56,27 @@ class UpdateTheContact : AppCompatActivity() {
         etCountry.setText(intent.getStringExtra("country"))
         etTimezone.setText(intent.getStringExtra("timezone"))
 
+        btnUpdate.setOnClickListener {
+            arraylist.add(etTittle.text.toString())
+            arraylist.add(et_firstName.text.toString())
+            arraylist.add(et_lastName.text.toString())
+            arraylist.add(et_Gender.text.toString())
+            arraylist.add(et_email.text.toString())
+            arraylist.add(et_phoneNo.text.toString())
+            arraylist.add(etStreet.text.toString())
+            arraylist.add(etState.text.toString())
+            arraylist.add(etCity.text.toString())
+            arraylist.add(etCountry.text.toString())
+            arraylist.add(etTimezone.text.toString())
+           // dataViewModel.getTheResponse("https://dummyapi.io/data/v1/user/create","PUT",arraylist)
+            Toast.makeText(this, "updated", Toast.LENGTH_SHORT).show()
+           startActivity(Intent(this,MainActivity::class.java))
+        }
+
+
+
+
+
         etImage.setOnClickListener{
             selectImage()
         }
@@ -52,7 +86,7 @@ class UpdateTheContact : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode==10){
             uri= data?.data!!
-            Glide.with(etImage).load(uri).into(etImage)
+            Glide.with(etImage).load(uri).into(etImage as ImageView)
           //  Log.d("imageUri",uri.toString())
 
         }

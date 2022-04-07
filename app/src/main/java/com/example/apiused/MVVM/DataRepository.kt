@@ -17,60 +17,12 @@ import java.net.URL
 
 class DataRepository {
     private val responseClassBuffer = MutableLiveData<HttpResponse>()
-    val user:LiveData<HttpResponse> get()=responseClassBuffer
+    val user: LiveData<HttpResponse> get() = responseClassBuffer
 
 
-    suspend fun getTheResponse(putUrl: String, requestMethod: String) {
-        val httpHelper=HttpHelper().getTheResponse(putUrl,requestMethod)
+    suspend fun getTheResponse(putUrl: String, requestMethod: String,arrayList: ArrayList<String>) {
+        val httpHelper = HttpHelper().getTheResponse(putUrl, requestMethod, arrayList)
         responseClassBuffer.postValue(httpHelper)
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//
-//    fun createNewContact(firstName: String, lastName: String, email: String) {
-//        val params = JSONObject()
-//        params.put("firstName", firstName)
-//        params.put("lastName", lastName)
-//        params.put("email", email)
-//        val paramString = params.toString()
-//        CoroutineScope(Dispatchers.IO).launch {
-//            var url: URL? = null
-//            try {
-//                val urlConnection =
-//                    HttpHelper().getUrlConnection("https://dummyapi.io/data/v1/user/create", "POST")
-//                urlConnection.doInput = true
-//                urlConnection.doOutput = true
-//                // Send the JSON we created
-//                val outputStreamWriter = OutputStreamWriter(urlConnection.outputStream)
-//                outputStreamWriter.write(paramString)
-//                outputStreamWriter.flush()
-//        //        Log.d("post", urlConnection.responseCode.toString())
-//            } catch (e: Exception) {
-//                e.printStackTrace()
-//            }
-//        }
-//    }
 
 }

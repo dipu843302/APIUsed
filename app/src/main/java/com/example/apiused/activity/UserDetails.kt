@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
@@ -24,7 +25,7 @@ import org.json.JSONObject
 class UserDetails : AppCompatActivity() {
 
     private lateinit var dataViewModel: DataViewModel
-
+   var arrayList=ArrayList<String>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_details)
@@ -39,14 +40,14 @@ class UserDetails : AppCompatActivity() {
         if (responseClass != null) {
             Glide.with(this)
                 .load(responseClass.picture)
-                .into(image)
+                .into(image as ImageView)
 
             tvName.text = responseClass.firstName
         }
 
         val id = responseClass?.id
         if (id != null) {
-            dataViewModel.getTheResponse("https://dummyapi.io/data/v1/user/$id","GET")
+            dataViewModel.getTheResponse("https://dummyapi.io/data/v1/user/$id","GET",arrayList)
             dataViewModel.user.observe(this) {
                 buildResponseData(it)
             }
@@ -80,7 +81,7 @@ class UserDetails : AppCompatActivity() {
         // delete the contact
         btnDelete.setOnClickListener {
             if (responseClass != null) {
-                dataViewModel.getTheResponse("https://dummyapi.io/data/v1/user/$id","DELETE")
+                dataViewModel.getTheResponse("https://dummyapi.io/data/v1/user/$id","DELETE",arrayList)
                 startActivity(Intent(this, MainActivity::class.java))
                 Toast.makeText(this, "Deleted", Toast.LENGTH_SHORT).show()
             }

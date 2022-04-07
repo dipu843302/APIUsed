@@ -14,6 +14,7 @@ import kotlinx.android.synthetic.main.activity_add.*
 class AddNewContact : AppCompatActivity() {
 
     private lateinit var dataViewModel: DataViewModel
+    var arrayList = ArrayList<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,11 +24,21 @@ class AddNewContact : AppCompatActivity() {
         val viewModelFactory = DataViewModelFactory(repository)
         dataViewModel = ViewModelProviders.of(this, viewModelFactory)[DataViewModel::class.java]
 
-        btnCreate.setOnClickListener{
-           // dataViewModel.createNewContact(etfirstName.text.toString(),etlastName.text.toString(),etEmail.text.toString())
-            dataViewModel.getTheResponse("https://dummyapi.io/data/v1/user/create","PUT")
+        btnCreate.setOnClickListener {
+            arrayList.add(etfirstName.text.toString())
+            arrayList.add(etlastName.text.toString())
+            arrayList.add(etEmail.text.toString())
+            dataViewModel.getTheResponse(
+                "https://dummyapi.io/data/v1/user/create",
+                "PUT",
+                arrayList
+            )
             Toast.makeText(this, "Added", Toast.LENGTH_SHORT).show()
-            startActivity(Intent(this,MainActivity::class.java))
+            startActivity(Intent(this, MainActivity::class.java))
+        }
+
+        ivBack.setOnClickListener{
+            onBackPressed()
         }
     }
 }

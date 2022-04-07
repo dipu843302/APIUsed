@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.view.menu.ActionMenuItemView
 import androidx.recyclerview.widget.RecyclerView
@@ -39,7 +40,7 @@ class DataAdapter(val list: MutableList<ResponseClass>,val clickListener: ClickL
                 Glide.with(this)
                     .load(responseClass.picture) // image url
                     .centerCrop()
-                    .into(image)  // imageview object
+                    .into(image as ImageView)  // imageview object
 
                 firstName.text = responseClass.firstName
 
