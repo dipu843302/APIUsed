@@ -15,7 +15,9 @@ import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.robolectric.annotation.Config
 
+@Config(manifest= Config.NONE)
 @RunWith(AndroidJUnit4::class)
 class RepositoryTest {
 
@@ -23,9 +25,9 @@ class RepositoryTest {
     private lateinit var contactData:LiveData<HttpResponse>
 
     private lateinit var dataRepository: DataRepository
-    var arraylist=ArrayList<String>()
     @MockK
-    lateinit var responseClass: ResponseClass
+    var arraylist=ArrayList<String>()
+
     @MockK
     lateinit var httpHelper: HttpHelper
 
@@ -43,7 +45,7 @@ class RepositoryTest {
     fun fetchTheContact_Testing(){
         coEvery {
             httpHelper.getTheResponse("https://dummyapi.io/data/v1/user","GET", arraylist)
-        } returns HttpResponse(httpResponse.statusCode,httpResponse.response)
+        } returns httpResponse
         runBlocking {
             dataRepository.getTheResponse("https://dummyapi.io/data/v1/user","GET", arraylist)
         }

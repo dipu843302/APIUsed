@@ -20,9 +20,12 @@ class DataRepository {
     val user: LiveData<HttpResponse> get() = responseClassBuffer
 
 
-    suspend fun getTheResponse(putUrl: String, requestMethod: String,arrayList: ArrayList<String>) {
-        val httpHelper = HttpHelper().getTheResponse(putUrl, requestMethod, arrayList)
-        responseClassBuffer.postValue(httpHelper)
+     fun getTheResponse(putUrl: String, requestMethod: String,arrayList: ArrayList<String>) {
+         CoroutineScope(Dispatchers.IO).launch {
+             val httpHelper = HttpHelper().getTheResponse(putUrl, requestMethod, arrayList)
+             responseClassBuffer.postValue(httpHelper)
+         }
+
     }
 
 }
