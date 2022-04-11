@@ -13,6 +13,7 @@ import com.example.apiused.MVVM.DataRepository
 import com.example.apiused.MVVM.DataViewModel
 import com.example.apiused.MVVM.DataViewModelFactory
 import com.example.apiused.R
+import com.example.apiused.helper.HttpHelper
 import com.example.apiused.models.ResponseClass
 import kotlinx.android.synthetic.main.activity_add.*
 import kotlinx.android.synthetic.main.activity_update.*
@@ -23,12 +24,13 @@ class UpdateTheContact : AppCompatActivity() {
     private lateinit var dataViewModel: DataViewModel
     private lateinit var uri: Uri
     var arraylist=ArrayList<String>()
+    private val httpHelper=HttpHelper()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_update)
 
-        val repository = DataRepository()
+        val repository = DataRepository(httpHelper)
         val viewModelFactory = DataViewModelFactory(repository)
         dataViewModel = ViewModelProviders.of(this, viewModelFactory)[DataViewModel::class.java]
 

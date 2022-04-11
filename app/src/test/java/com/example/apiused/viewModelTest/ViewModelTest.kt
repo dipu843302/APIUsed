@@ -29,63 +29,63 @@ class ViewModelTest {
     @Test
     fun fetchTheContact(){
         coEvery {
-            dataRepository.getTheResponse("https://dummyapi.io/data/v1/user","GET", arraylist)
+            dataRepository.getTheMyResponse("https://dummyapi.io/data/v1/user","GET", arraylist)
         } returns Unit
         runBlocking {
             dataViewModel.getTheResponse("https://dummyapi.io/data/v1/user","GET", arraylist)
         }
         coVerify {
-            dataRepository.getTheResponse("https://dummyapi.io/data/v1/user","GET", arraylist)
+            dataRepository.getTheMyResponse("https://dummyapi.io/data/v1/user","GET", arraylist)
         }
     }
     @Test
     fun fetchTheContactById(){
         coEvery {
-            dataRepository.getTheResponse("https://dummyapi.io/data/v1/user/6246f777cb2f3f6743a05b95","GET", arraylist)
+            dataRepository.getTheMyResponse("https://dummyapi.io/data/v1/user/6246f777cb2f3f6743a05b95","GET", arraylist)
         } returns Unit
         runBlocking {
             dataViewModel.getTheResponse("https://dummyapi.io/data/v1/user/6246f777cb2f3f6743a05b95","GET", arraylist)
         }
         coVerify {
-            dataRepository.getTheResponse("https://dummyapi.io/data/v1/user/6246f777cb2f3f6743a05b95","GET", arraylist)
+            dataRepository.getTheMyResponse("https://dummyapi.io/data/v1/user/6246f777cb2f3f6743a05b95","GET", arraylist)
         }
     }
     @Test
     fun deleteTheContactById(){
         coEvery {
-            dataRepository.getTheResponse("https://dummyapi.io/data/v1/user/60d0fe4f5311236168a109ed","DELETE", arraylist)
+            dataRepository.getTheMyResponse("https://dummyapi.io/data/v1/user/60d0fe4f5311236168a109ed","DELETE", arraylist)
         } returns Unit
         runBlocking {
             dataViewModel.getTheResponse("https://dummyapi.io/data/v1/user/60d0fe4f5311236168a109ed","DELETE", arraylist)
         }
         coVerify {
-            dataRepository.getTheResponse("https://dummyapi.io/data/v1/user/60d0fe4f5311236168a109ed","DELETE", arraylist)
+            dataRepository.getTheMyResponse("https://dummyapi.io/data/v1/user/60d0fe4f5311236168a109ed","DELETE", arraylist)
         }
     }
 
     @Test
     fun createNewContact(){
         coEvery {
-            dataRepository.getTheResponse("https://dummyapi.io/data/v1/user/create","POST", arraylist)
+            dataRepository.getTheMyResponse("https://dummyapi.io/data/v1/user/create","POST", arraylist)
         } returns Unit
         runBlocking {
             dataViewModel.getTheResponse("https://dummyapi.io/data/v1/user/create","POST", arraylist)
         }
         coVerify {
-            dataRepository.getTheResponse("https://dummyapi.io/data/v1/user/create","POST", arraylist)
+            dataRepository.getTheMyResponse("https://dummyapi.io/data/v1/user/create","POST", arraylist)
         }
     }
 
     @Test
     fun updateTheContact(){
         coEvery {
-            dataRepository.getTheResponse("https://dummyapi.io/data/v1/user/60d0fe4f5311236168a109e1","PUT", arraylist)
+            dataRepository.getTheMyResponse("https://dummyapi.io/data/v1/user/60d0fe4f5311236168a109e1","PUT", arraylist)
         } returns Unit
         runBlocking {
             dataViewModel.getTheResponse("https://dummyapi.io/data/v1/user/60d0fe4f5311236168a109e1","PUT", arraylist)
         }
         coVerify {
-            dataRepository.getTheResponse("https://dummyapi.io/data/v1/user/60d0fe4f5311236168a109e1","PUT", arraylist)
+            dataRepository.getTheMyResponse("https://dummyapi.io/data/v1/user/60d0fe4f5311236168a109e1","PUT", arraylist)
         }
     }
 }

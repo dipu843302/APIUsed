@@ -15,17 +15,14 @@ import java.io.OutputStreamWriter
 import java.net.URL
 
 
-class DataRepository {
+class DataRepository(val httpHelper: HttpHelper) {
     private val responseClassBuffer = MutableLiveData<HttpResponse>()
     val user: LiveData<HttpResponse> get() = responseClassBuffer
 
 
-     fun getTheResponse(putUrl: String, requestMethod: String,arrayList: ArrayList<String>) {
+     fun getTheMyResponse(putUrl: String, requestMethod: String,arrayList: ArrayList<String>) {
          CoroutineScope(Dispatchers.IO).launch {
-             val httpHelper = HttpHelper().getTheResponse(putUrl, requestMethod, arrayList)
-             responseClassBuffer.postValue(httpHelper)
+             responseClassBuffer.postValue( httpHelper.getTheResponse(putUrl, requestMethod, arrayList))
          }
-
     }
-
 }

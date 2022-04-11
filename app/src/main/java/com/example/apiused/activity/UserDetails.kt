@@ -12,6 +12,7 @@ import com.example.apiused.MVVM.DataRepository
 import com.example.apiused.MVVM.DataViewModel
 import com.example.apiused.MVVM.DataViewModelFactory
 import com.example.apiused.R
+import com.example.apiused.helper.HttpHelper
 import com.example.apiused.helper.HttpResponse
 import com.example.apiused.models.Location
 import com.example.apiused.models.ResponseClass
@@ -26,11 +27,12 @@ class UserDetails : AppCompatActivity() {
 
     private lateinit var dataViewModel: DataViewModel
    var arrayList=ArrayList<String>()
+    private val httpHelper=HttpHelper()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_details)
 
-        val repository = DataRepository()
+        val repository = DataRepository(httpHelper)
         val viewModelFactory = DataViewModelFactory(repository)
         dataViewModel = ViewModelProviders.of(this, viewModelFactory)[DataViewModel::class.java]
 

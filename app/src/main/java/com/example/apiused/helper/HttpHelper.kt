@@ -18,12 +18,15 @@ class HttpHelper {
     var responseCode: Int = 0
 
     suspend fun getTheResponse(putUrl: String, requestMethod: String,arrayList: ArrayList<String>): HttpResponse {
-        Log.d(TAG, "StartingOfTheMethod")
+      //  Log.d(TAG, "StartingOfTheMethod")
 
         val stringBuffer = StringBuffer()
         val params = JSONObject()
         if (requestMethod == "PUT" || requestMethod == "POST") {
-            params.put("arraylist", arrayList)
+            params.put("lastName", "sah")
+            params.put("firstName",  "Dipuk")
+            params.put("email", "dipuku5a84502@gmail.com")
+//            params.put("arraylist", arrayList)
         }
         val paramString = params.toString()
         try {
@@ -38,6 +41,7 @@ class HttpHelper {
                 urlConnection.doInput = true
                 urlConnection.doOutput = true
                 val outputStreamWriter = OutputStreamWriter(urlConnection.outputStream)
+                Log.d("postCheck",paramString)
                 outputStreamWriter.write(paramString)
                 outputStreamWriter.flush()
                 responseCode = urlConnection.responseCode
@@ -62,13 +66,13 @@ class HttpHelper {
             }
             //  responseClassBuffer.postValue(stringBuffer)
             responseCode = urlConnection.responseCode
-            Log.d(TAG, "responseCode" + urlConnection.responseCode.toString())
-            Log.d("tag", stringBuffer.toString())
+          //  Log.d(TAG, "responseCode" + urlConnection.responseCode.toString())
+          //  Log.d("tag", stringBuffer.toString())
             return HttpResponse(responseCode, stringBuffer.toString())
         } catch (e: Exception) {
             e.printStackTrace()
         }
-        Log.d(TAG, "outSideTheScope")
+     //   Log.d(TAG, "outSideTheScope")
         return HttpResponse(responseCode, stringBuffer.toString())
     }
 

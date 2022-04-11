@@ -9,18 +9,20 @@ import com.example.apiused.MVVM.DataRepository
 import com.example.apiused.MVVM.DataViewModel
 import com.example.apiused.MVVM.DataViewModelFactory
 import com.example.apiused.R
+import com.example.apiused.helper.HttpHelper
 import kotlinx.android.synthetic.main.activity_add.*
 
 class AddNewContact : AppCompatActivity() {
 
     private lateinit var dataViewModel: DataViewModel
     var arrayList = ArrayList<String>()
+    private val httpHelper=HttpHelper()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add)
 
-        val repository = DataRepository()
+        val repository = DataRepository(httpHelper)
         val viewModelFactory = DataViewModelFactory(repository)
         dataViewModel = ViewModelProviders.of(this, viewModelFactory)[DataViewModel::class.java]
 

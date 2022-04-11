@@ -15,7 +15,7 @@ class DataViewModel(private val dataRepository: DataRepository) : ViewModel() {
 
     fun getTheResponse(putUrl: String, requestMethod: String,arrayList: ArrayList<String>) {
         viewModelScope.launch (Dispatchers.IO){
-         dataRepository.getTheResponse(putUrl, requestMethod,arrayList)
+         dataRepository.getTheMyResponse(putUrl, requestMethod,arrayList)
         }
     }
 
