@@ -5,18 +5,36 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:padding="5dp"
     tools:context=".activity.MainActivity">
+
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/searchView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_marginStart="9dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="9dp"
+            android:background="#FAF1EAEA"
+            android:layout_marginBottom="13dp"
+            app:layout_constraintBottom_toTopOf="@+id/recyclerView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
-        android:layout_width="400dp"
-        android:layout_height="655dp"
+        android:layout_width="389dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="9dp"
+        android:paddingLeft="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.333"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/searchView"
+        app:layout_constraintVertical_bias="0.943" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/addData"
@@ -29,16 +47,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@android:drawable/ic_input_add" />
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Contacts"
-        android:textColor="@color/black"
-        android:textSize="20dp"
-        android:textAlignment="center"
-        android:background="#E1DDDD"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -13,9 +13,9 @@ class DataViewModel(private val dataRepository: DataRepository) : ViewModel() {
 
     val user: LiveData<HttpResponse> get() = dataRepository.user
 
-    fun getTheResponse(putUrl: String, requestMethod: String,arrayList: ArrayList<String>) {
+    fun getTheResponse(putUrl: String, requestMethod: String,payLoad: String) {
         viewModelScope.launch (Dispatchers.IO){
-         dataRepository.getTheMyResponse(putUrl, requestMethod,arrayList)
+         dataRepository.getTheMyResponse(putUrl, requestMethod,payLoad)
         }
     }
 

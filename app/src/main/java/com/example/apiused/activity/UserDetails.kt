@@ -3,7 +3,6 @@ package com.example.apiused.activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProviders
@@ -14,11 +13,8 @@ import com.example.apiused.MVVM.DataViewModelFactory
 import com.example.apiused.R
 import com.example.apiused.helper.HttpHelper
 import com.example.apiused.helper.HttpResponse
-import com.example.apiused.models.Location
 import com.example.apiused.models.ResponseClass
-import com.example.apiused.models.UserModel
 import kotlinx.android.synthetic.main.activity_user_details.*
-import kotlinx.android.synthetic.main.item_layout.*
 import kotlinx.android.synthetic.main.item_layout.image
 import org.json.JSONException
 import org.json.JSONObject
@@ -26,7 +22,7 @@ import org.json.JSONObject
 class UserDetails : AppCompatActivity() {
 
     private lateinit var dataViewModel: DataViewModel
-   var arrayList=ArrayList<String>()
+   var payLaod=JSONObject()
     private val httpHelper=HttpHelper()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,7 +45,7 @@ class UserDetails : AppCompatActivity() {
 
         val id = responseClass?.id
         if (id != null) {
-            dataViewModel.getTheResponse("https://dummyapi.io/data/v1/user/$id","GET",arrayList)
+            dataViewModel.getTheResponse("https://dummyapi.io/data/v1/user/$id","GET",payLaod.toString())
             dataViewModel.user.observe(this) {
                 buildResponseData(it)
             }
@@ -64,7 +60,7 @@ class UserDetails : AppCompatActivity() {
         //update the contact
         btnEdit.setOnClickListener {
            val intent=Intent(this,UpdateTheContact::class.java)
-          //  intent.putExtra("id",id)
+            intent.putExtra("id",id)
             intent.putExtra("response",responseClass)
             intent.putExtra("tittle",tvTittle.text.toString())
             intent.putExtra("firstName",tvFirstName.text.toString())
@@ -83,7 +79,7 @@ class UserDetails : AppCompatActivity() {
         // delete the contact
         btnDelete.setOnClickListener {
             if (responseClass != null) {
-                dataViewModel.getTheResponse("https://dummyapi.io/data/v1/user/$id","DELETE",arrayList)
+                dataViewModel.getTheResponse("https://dummyapi.io/data/v1/user/$id","DELETE",payLaod.toString())
                 startActivity(Intent(this, MainActivity::class.java))
                 Toast.makeText(this, "Deleted", Toast.LENGTH_SHORT).show()
             }

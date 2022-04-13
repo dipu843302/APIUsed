@@ -19,11 +19,12 @@ import kotlinx.android.synthetic.main.activity_add.*
 import kotlinx.android.synthetic.main.activity_update.*
 import kotlinx.android.synthetic.main.activity_user_details.*
 import kotlinx.android.synthetic.main.item_layout.*
+import org.json.JSONObject
 
 class UpdateTheContact : AppCompatActivity() {
     private lateinit var dataViewModel: DataViewModel
     private lateinit var uri: Uri
-    var arraylist=ArrayList<String>()
+    var payLoad=JSONObject()
     private val httpHelper=HttpHelper()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,26 +59,28 @@ class UpdateTheContact : AppCompatActivity() {
         etCountry.setText(intent.getStringExtra("country"))
         etTimezone.setText(intent.getStringExtra("timezone"))
 
+        var contactId=intent.getStringExtra("id")
+
         btnUpdate.setOnClickListener {
-            arraylist.add(etTittle.text.toString())
-            arraylist.add(et_firstName.text.toString())
-            arraylist.add(et_lastName.text.toString())
-            arraylist.add(et_Gender.text.toString())
-            arraylist.add(et_email.text.toString())
-            arraylist.add(et_phoneNo.text.toString())
-            arraylist.add(etStreet.text.toString())
-            arraylist.add(etState.text.toString())
-            arraylist.add(etCity.text.toString())
-            arraylist.add(etCountry.text.toString())
-            arraylist.add(etTimezone.text.toString())
-           // dataViewModel.getTheResponse("https://dummyapi.io/data/v1/user/create","PUT",arraylist)
+            payLoad.put("title",etTittle.text.toString())
+            payLoad.put("firstName",et_firstName.text.toString())
+            payLoad.put("lastName",et_lastName.text.toString())
+            payLoad.put("gender",et_Gender.text.toString())
+            payLoad.put("email",et_email.text.toString())
+            payLoad.put("phone",et_phoneNo.text.toString())
+            payLoad.put("street",etStreet.text.toString())
+            payLoad.put("state",etState.text.toString())
+            payLoad.put("city",etCity.text.toString())
+            payLoad.put("country",etCountry.text.toString())
+            payLoad.put("timezone",etTimezone.text.toString())
+            if (responseClass != null) {
+                dataViewModel.getTheResponse("https://dummyapi.io/data/v1/user/${contactId}",
+                    "PUT",
+                    payLoad.toString())
+            }
             Toast.makeText(this, "updated", Toast.LENGTH_SHORT).show()
            startActivity(Intent(this,MainActivity::class.java))
         }
-
-
-
-
 
         etImage.setOnClickListener{
             selectImage()

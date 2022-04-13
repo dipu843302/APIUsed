@@ -1,11 +1,6 @@
 package com.example.apiused.helper
 
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import org.json.JSONObject
 import java.io.InputStreamReader
 import java.io.OutputStreamWriter
@@ -17,18 +12,17 @@ class HttpHelper {
     private val TAG = "HttpHelper"
     var responseCode: Int = 0
 
-    suspend fun getTheResponse(putUrl: String, requestMethod: String,arrayList: ArrayList<String>): HttpResponse {
+    suspend fun getTheResponse(putUrl: String, requestMethod: String, payLoad: String): HttpResponse {
       //  Log.d(TAG, "StartingOfTheMethod")
 
         val stringBuffer = StringBuffer()
-        val params = JSONObject()
         if (requestMethod == "PUT" || requestMethod == "POST") {
-            params.put("lastName", "sah")
-            params.put("firstName",  "Dipuk")
-            params.put("email", "dipuku5a84502@gmail.com")
-//            params.put("arraylist", arrayList)
+
         }
-        val paramString = params.toString()
+
+
+        Log.d(TAG, "paylaod $payLoad")
+
         try {
             var url: URL? = null
             url = URL(putUrl)
@@ -41,11 +35,14 @@ class HttpHelper {
                 urlConnection.doInput = true
                 urlConnection.doOutput = true
                 val outputStreamWriter = OutputStreamWriter(urlConnection.outputStream)
-                Log.d("postCheck",paramString)
-                outputStreamWriter.write(paramString)
+                outputStreamWriter.write(payLoad)
                 outputStreamWriter.flush()
                 responseCode = urlConnection.responseCode
-                Log.d("createName",responseCode.toString())
+
+                Log.d(TAG,"urlConnection method "+urlConnection.requestMethod)
+                Log.d(TAG,"urlConnection message "+urlConnection.responseMessage)
+                Log.d(TAG, "statusCode $responseCode")
+
             }else {
                 val inputStream = urlConnection.inputStream
 
@@ -75,6 +72,22 @@ class HttpHelper {
      //   Log.d(TAG, "outSideTheScope")
         return HttpResponse(responseCode, stringBuffer.toString())
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //    fun createNewContact(firstName: String, lastName: String, email: String, arrayList: ArrayList<String>) {
 //        val params = JSONObject()

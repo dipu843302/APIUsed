@@ -40,12 +40,15 @@ class ViewModelTest {
     }
     @Test
     fun fetchTheContactById(){
+        // Stub Calls
         coEvery {
             dataRepository.getTheMyResponse("https://dummyapi.io/data/v1/user/6246f777cb2f3f6743a05b95","GET", arraylist)
         } returns Unit
+        //Calling function for testing
         runBlocking {
             dataViewModel.getTheResponse("https://dummyapi.io/data/v1/user/6246f777cb2f3f6743a05b95","GET", arraylist)
         }
+        // verifying the function
         coVerify {
             dataRepository.getTheMyResponse("https://dummyapi.io/data/v1/user/6246f777cb2f3f6743a05b95","GET", arraylist)
         }

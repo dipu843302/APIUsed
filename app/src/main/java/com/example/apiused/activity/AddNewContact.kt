@@ -11,11 +11,12 @@ import com.example.apiused.MVVM.DataViewModelFactory
 import com.example.apiused.R
 import com.example.apiused.helper.HttpHelper
 import kotlinx.android.synthetic.main.activity_add.*
+import org.json.JSONObject
 
 class AddNewContact : AppCompatActivity() {
 
     private lateinit var dataViewModel: DataViewModel
-    var arrayList = ArrayList<String>()
+    var payLoad = JSONObject()
     private val httpHelper=HttpHelper()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,13 +28,13 @@ class AddNewContact : AppCompatActivity() {
         dataViewModel = ViewModelProviders.of(this, viewModelFactory)[DataViewModel::class.java]
 
         btnCreate.setOnClickListener {
-            arrayList.add(etfirstName.text.toString())
-            arrayList.add(etlastName.text.toString())
-            arrayList.add(etEmail.text.toString())
+            payLoad.put("firstName",etfirstName.text.toString())
+            payLoad.put("lastName",etlastName.text.toString())
+            payLoad.put("email",etEmail.text.toString())
             dataViewModel.getTheResponse(
                 "https://dummyapi.io/data/v1/user/create",
-                "PUT",
-                arrayList
+                "POST",
+                payLoad.toString()
             )
             Toast.makeText(this, "Added", Toast.LENGTH_SHORT).show()
             startActivity(Intent(this, MainActivity::class.java))
