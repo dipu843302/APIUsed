@@ -73,13 +73,13 @@
        <TextView
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
-           android:text="Mr "
+           tools:text="Mr "
            android:textSize="18dp"
            android:id="@+id/tvTittle"/>
        <TextView
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
-           android:text="first Name"
+           tools:text="first Name"
            android:layout_marginStart="5dp"
            android:textSize="18dp"
            android:id="@+id/tvFirstName"
@@ -87,7 +87,7 @@
        <TextView
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
-           android:text="Last Name"
+           tools:text="Last Name"
            android:layout_marginStart="5dp"
            android:textSize="18dp"
            android:id="@+id/tvLastName"/>
