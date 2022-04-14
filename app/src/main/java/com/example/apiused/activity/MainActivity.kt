@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.apiused.MVVM.DataRepository
 import com.example.apiused.MVVM.DataViewModel
 import com.example.apiused.MVVM.DataViewModelFactory
@@ -20,13 +21,18 @@ import com.example.apiused.helper.HttpHelper
 import com.example.apiused.helper.HttpResponse
 import com.example.apiused.models.ResponseClass
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.item_layout.*
 import org.json.JSONException
 import org.json.JSONObject
 import java.util.*
 import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity(), ClickListener {
-    var TAG="MainActivity"
+    var search=""
+    lateinit var linearLayoutManager: LinearLayoutManager
+    var position = 0
+    var lastPosition = 0
+    var TAG = "MainActivity"
     private lateinit var dataViewModel: DataViewModel
     lateinit var dataAdapter: DataAdapter
     private val httpHelper = HttpHelper()
@@ -39,20 +45,46 @@ class MainActivity : AppCompatActivity(), ClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        supportActionBar?.setDisplayShowTitleEnabled(false)
 
         val repository = DataRepository(httpHelper)
         val viewModelFactory = DataViewModelFactory(repository)
         dataViewModel = ViewModelProviders.of(this, viewModelFactory)[DataViewModel::class.java]
 
-        dataViewModel.getTheResponse("https://dummyapi.io/data/v1/user", "GET", payLoad.toString())
+        apiCall()
+
         dataViewModel.user.observe(this) {
 
             buildResponseData(it)
+            Log.d("dipu", "fetch data ${it.response[0]}")
         }
         addData.setOnClickListener {
             startActivity(Intent(this, AddNewContact::class.java))
         }
+
+        linearLayoutManager = LinearLayoutManager(this)
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                if (linearLayoutManager.findLastVisibleItemPosition() == linearLayoutManager.itemCount - 1 && lastPosition != datalist.size && search.isEmpty()) {
+                    position++
+                    apiCall()
+                    Log.d("position", "$position $lastPosition")
+                    lastPosition = datalist.size
+                }
+
+                super.onScrolled(recyclerView, dx, dy)
+
+            }
+
+        })
+    }
+
+    private fun apiCall() {
+        dataViewModel.getTheResponse(
+            "https://dummyapi.io/data/v1/user?limit=50&page=$position",
+            "GET",
+            payLoad.toString()
+        )
     }
 
     private fun buildResponseData(httpResponse: HttpResponse) {
@@ -60,29 +92,37 @@ class MainActivity : AppCompatActivity(), ClickListener {
         try {
             val jsonObject = JSONObject(json)
             val jsonArray = jsonObject.getJSONArray("data")
+            var id: String? = null
+            var title: String? = null
+            var firstName: String? = null
+            var lastName: String? = null
+            var picture: String? = null
+
             for (i in 0 until jsonArray.length()) {
-                val eachJsonObjects = jsonArray.getJSONObject(i)
-                val id = eachJsonObjects.getString("id")
-                val title = eachJsonObjects.getString("title")
-                val firstName = eachJsonObjects.getString("firstName")
-                val lastName = eachJsonObjects.getString("lastName")
-                val picture = eachJsonObjects.getString("picture")
-
-                val responseClass = ResponseClass(id, title, firstName, lastName, picture)
-                datalist.add(responseClass)
+                try {
+                    val eachJsonObjects = jsonArray.getJSONObject(i)
+                    id = eachJsonObjects.getString("id")
+                    firstName = eachJsonObjects.getString("firstName")
+                    lastName = eachJsonObjects.getString("lastName")
+                    title = eachJsonObjects.getString("title")
+                    picture = eachJsonObjects.getString("picture")
+                } catch (e: Exception) {
+                    print(e)
+                } finally {
+                    val responseClass = ResponseClass(id, title, firstName, lastName, picture)
+                    datalist.add(responseClass)
+                }
+                setRecyclerView()
             }
-            displayList.addAll(datalist)
-            setRecyclerView()
-
-        } catch (e: JSONException) {
+        } catch (e: Exception) {
             e.printStackTrace()
         }
     }
 
     private fun setRecyclerView() {
-        dataAdapter = DataAdapter(displayList, this)
+        dataAdapter = DataAdapter(datalist, this)
         recyclerView.adapter = dataAdapter
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.layoutManager = linearLayoutManager
     }
 
     override fun userClickListener(responseClass: ResponseClass) {
@@ -91,6 +131,8 @@ class MainActivity : AppCompatActivity(), ClickListener {
         startActivity(intent)
     }
 
+
+    // for searching
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu, menu)
         val menuItem = menu!!.findItem(R.id.search)
@@ -108,15 +150,15 @@ class MainActivity : AppCompatActivity(), ClickListener {
                     if (newText!!.isNotEmpty()) {
                         displayList.clear()
 
-                        val search = newText.lowercase(Locale.getDefault())
+                         search = newText.lowercase(Locale.getDefault())
                         datalist.forEach {
-                            if (it.toString().lowercase(Locale.getDefault()).contains(search)) {
+                            if (it.firstName?.lowercase(Locale.getDefault())!!?.contains(search)) {
                                 displayList.add(it)
                                 Log.d(TAG, "data $it")
                             }
                         }
                         recyclerView.adapter!!.notifyDataSetChanged()
-                    }else{
+                    } else {
                         displayList.clear()
                         displayList.addAll(datalist)
                         recyclerView.adapter!!.notifyDataSetChanged()
@@ -133,5 +175,6 @@ class MainActivity : AppCompatActivity(), ClickListener {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return super.onOptionsItemSelected(item)
     }
+
 }
 

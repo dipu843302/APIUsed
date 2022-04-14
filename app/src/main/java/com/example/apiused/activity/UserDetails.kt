@@ -22,8 +22,8 @@ import org.json.JSONObject
 class UserDetails : AppCompatActivity() {
 
     private lateinit var dataViewModel: DataViewModel
-   var payLaod=JSONObject()
-    private val httpHelper=HttpHelper()
+    var payLaod = JSONObject()
+    private val httpHelper = HttpHelper()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_details)
@@ -45,7 +45,11 @@ class UserDetails : AppCompatActivity() {
 
         val id = responseClass?.id
         if (id != null) {
-            dataViewModel.getTheResponse("https://dummyapi.io/data/v1/user/$id","GET",payLaod.toString())
+            dataViewModel.getTheResponse(
+                "https://dummyapi.io/data/v1/user/$id",
+                "GET",
+                payLaod.toString()
+            )
             dataViewModel.user.observe(this) {
                 buildResponseData(it)
             }
@@ -59,27 +63,31 @@ class UserDetails : AppCompatActivity() {
 
         //update the contact
         btnEdit.setOnClickListener {
-           val intent=Intent(this,UpdateTheContact::class.java)
-            intent.putExtra("id",id)
-            intent.putExtra("response",responseClass)
-            intent.putExtra("tittle",tvTittle.text.toString())
-            intent.putExtra("firstName",tvFirstName.text.toString())
-            intent.putExtra("lastName",tvLastName.text.toString())
-            intent.putExtra("gender",tvGender.text.toString())
-            intent.putExtra("email",tvEmail.text.toString())
-            intent.putExtra("phone",tvPhone.text.toString())
-            intent.putExtra("street",tVStreet.text.toString())
-            intent.putExtra("city",tvCity.text.toString())
-            intent.putExtra("state",tvState.text.toString())
-            intent.putExtra("country",tvCountry.text.toString())
-            intent.putExtra("timezone",tvTimezone.text.toString())
+            val intent = Intent(this, UpdateTheContact::class.java)
+            intent.putExtra("id", id)
+            intent.putExtra("response", responseClass)
+            intent.putExtra("tittle", tvTittle.text.toString())
+            intent.putExtra("firstName", tvFirstName.text.toString())
+            intent.putExtra("lastName", tvLastName.text.toString())
+            intent.putExtra("gender", tvGender.text.toString())
+            intent.putExtra("email", tvEmail.text.toString())
+            intent.putExtra("phone", tvPhone.text.toString())
+            intent.putExtra("street", tVStreet.text.toString())
+            intent.putExtra("city", tvCity.text.toString())
+            intent.putExtra("state", tvState.text.toString())
+            intent.putExtra("country", tvCountry.text.toString())
+            intent.putExtra("timezone", tvTimezone.text.toString())
             startActivity(intent)
         }
 
         // delete the contact
         btnDelete.setOnClickListener {
             if (responseClass != null) {
-                dataViewModel.getTheResponse("https://dummyapi.io/data/v1/user/$id","DELETE",payLaod.toString())
+                dataViewModel.getTheResponse(
+                    "https://dummyapi.io/data/v1/user/$id",
+                    "DELETE",
+                    payLaod.toString()
+                )
                 startActivity(Intent(this, MainActivity::class.java))
                 Toast.makeText(this, "Deleted", Toast.LENGTH_SHORT).show()
             }
@@ -89,18 +97,22 @@ class UserDetails : AppCompatActivity() {
     private fun buildResponseData(httpResponse: HttpResponse) {
 
         val json = httpResponse.response
+
+        var firstName: String? = null
+        var lastName: String? = null
+        var email: String? = null
         try {
             val jsonObject = JSONObject(json)
+            firstName = jsonObject.getString("firstName")
+            lastName = jsonObject.getString("lastName")
+            email = jsonObject.getString("email")
 
             val eachJsonObjects = jsonObject.getJSONObject("location")
 
             val id = jsonObject.getString("id")
             val title = jsonObject.getString("title")
-            val firstName = jsonObject.getString("firstName")
-            val lastName = jsonObject.getString("lastName")
             val picture = jsonObject.getString("picture")
             val gender = jsonObject.getString("gender")
-            val email = jsonObject.getString("email")
             val dateOfBirth = jsonObject.getString("dateOfBirth")
             val phone = jsonObject.getString("phone")
 
@@ -112,20 +124,22 @@ class UserDetails : AppCompatActivity() {
 
 
             tvTittle.text = title
-            tvFirstName.text = firstName
-            tvLastName.text = lastName
-            tvEmail.text = email
             tvDOB.text = dateOfBirth
             tvPhone.text = phone
-            tvGender.text=gender
+            tvGender.text = gender
             tVStreet.text = street
             tvCity.text = city
             tvState.text = state
             tvCountry.text = country
             tvTimezone.text = timezone
 
-        } catch (e: JSONException) {
+        }
+        catch (e: Exception) {
             e.printStackTrace()
+        }finally {
+            tvFirstName.text = firstName
+            tvLastName.text = lastName
+            tvEmail.text = email
         }
     }
 }

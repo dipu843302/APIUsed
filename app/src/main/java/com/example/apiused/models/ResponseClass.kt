@@ -5,6 +5,6 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class ResponseClass(
-    val id:String,val title:String,val firstName:String,
-    val lastName:String,val picture:String
-):Parcelable
+    val id: String? = null, val title: String? = null, val firstName: String? = null,
+    val lastName: String? = null, val picture: String? = null
+) : Parcelable

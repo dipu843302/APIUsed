@@ -30,6 +30,8 @@ class HttpHelper {
             urlConnection.requestMethod = requestMethod
             urlConnection.setRequestProperty("Content-Type", "application/json")
             urlConnection.setRequestProperty("app-id", "6246a11467f32b430c69b150")
+            Log.d(TAG,"url $url")
+
 
             if (requestMethod == "PUT" || requestMethod == "POST" || requestMethod=="DELETE") {
                 urlConnection.doInput = true
@@ -38,10 +40,6 @@ class HttpHelper {
                 outputStreamWriter.write(payLoad)
                 outputStreamWriter.flush()
                 responseCode = urlConnection.responseCode
-
-                Log.d(TAG,"urlConnection method "+urlConnection.requestMethod)
-                Log.d(TAG,"urlConnection message "+urlConnection.responseMessage)
-                Log.d(TAG, "statusCode $responseCode")
 
             }else {
                 val inputStream = urlConnection.inputStream
@@ -60,9 +58,14 @@ class HttpHelper {
                     stringBuffer.append(ch)
                     data = inputStreamReader.read()
                 }
+
             }
+            Log.d(TAG,"urlConnection method "+urlConnection.requestMethod)
+            Log.d(TAG,"urlConnection message "+urlConnection.responseMessage)
+
             //  responseClassBuffer.postValue(stringBuffer)
             responseCode = urlConnection.responseCode
+            Log.d(TAG, "statusCode $responseCode")
           //  Log.d(TAG, "responseCode" + urlConnection.responseCode.toString())
           //  Log.d("tag", stringBuffer.toString())
             return HttpResponse(responseCode, stringBuffer.toString())
